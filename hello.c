@@ -52,7 +52,7 @@ int main () {
 	res = yad3RemoveApartmentService(service, "brizer32@gmail.com", "Only for rich");
 	printYad3Result(res);
 	//mtmPrintRealtor(stdout,"brizer2@gmail.com", "RealState");
-
+	printf("testing some shit");
 	yad3DeleteRealtor(service, "brizer2@gmail.com");
 	yad3DeleteRealtor(service, "brizer32@gmail.com");
 
