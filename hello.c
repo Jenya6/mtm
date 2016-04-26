@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "yad3service.h"
 #include "mtm_ex2.h"
 
@@ -26,35 +27,75 @@ void printYad3Result (Yad3Result result) {
 }
 
 int main () {
-	printf("Printing all Realtors:\n");
+
 	Yad3Service service = yad3ServiceCreate();
 
-	Yad3Result res;
+	yad3RealtorAdd(service, "dave@gmail", "Davidson", 12);
+	yad3RealtorAdd(service, "jessica@gmail", "Rabbits inc.", 11);
+	yad3RealtorAdd(service, "ned_stark@gmail", "Winter is coming", 14);
 
-	res = yad3AddRealtor(service, "brizer2@gmail.com", "RealState", 100);
-	printYad3Result(res);
-	res = yad3AddRealtor(service, "brizer2@gmail.com", "Remax", 100);
-	printYad3Result(res);
-	res = yad3AddRealtor(service, "brizer32@gmail.com", "Remax", 100);
-	printYad3Result(res);
-	res = yad3AddApartmentService(service, "brizer2@gmail.com", "luah Zafon", 500);
-	printYad3Result(res);
-	res = yad3AddApartmentService(service, "brizer2@gmail.com", "luah Darom", 500);
-	printYad3Result(res);
-	res = yad3AddApartmentService(service, "brizer3@gmail.com", "Only for rich", 500);
-	printYad3Result(res);
-	res = yad3AddApartmentService(service, "brizer32@gmail.com", "Only for rich", 500);
-	printYad3Result(res);
-	res = yad3AddApartmentService(service, "brizer32@gmail.com", "Only for rich", 500);
-	printYad3Result(res);
-	res = yad3RemoveApartmentService(service, "brizer2@gmail.com", "Only for rich");
-	printYad3Result(res);
-	res = yad3RemoveApartmentService(service, "brizer32@gmail.com", "Only for rich");
-	printYad3Result(res);
-	//mtmPrintRealtor(stdout,"brizer2@gmail.com", "RealState");
+//	SquareType s0[] = { WALL, EMPTY, WALL };
+//	SquareType s1[] = { WALL, EMPTY, EMPTY };
+//	SquareType s2[] = { WALL, WALL, WALL };
+//	SquareType s3[] = { EMPTY, EMPTY, EMPTY };
+//	SquareType* grid1[4] = { s0, s1, s2, s3 };	//Area = 6
+//	SquareType* grid2[4] = { s0, s1, s1, s1 };	//Area = 7
+//	SquareType* grid3[4] = { s3, s3, s1, s3 };	//Area = 10
+//	SquareType* grid4[4] = { s3, s3, s3, s3 };	//Area = 12
+//	SquareType* grid5[4] = { s0, s0, s2, s0 };	//Area = 3
+//	Apartment apartment1 = apartmentCreate(grid1, 4, 3, 150000);//Area = 6, Price = 150000
+//	Apartment apartment2 = apartmentCreate(grid2, 4, 3, 690000);//Area = 7, Price = 690000
+//	Apartment apartment3 = apartmentCreate(grid3, 4, 3, 100000);//Area = 10, Price = 100000
+//	Apartment apartment4 = apartmentCreate(grid4, 4, 3, 800080);//Area = 12, Price = 800080
+//	Apartment apartment5 = apartmentCreate(grid5, 4, 3, 300000);//Area = 3, Price = 300000
 
-	yad3DeleteRealtor(service, "brizer2@gmail.com");
-	yad3DeleteRealtor(service, "brizer32@gmail.com");
+	char* mat1 = "wewweewwweee";	//Area = 6
+	char* mat2 = "eewweeweewee";	//Area = 7
+	char* mat3 = "eeeeeeweweee";	//Area = 10
+	char* mat4 = "eeeeeeeeeeee";	//Area = 12
+	char* mat5 = "wewwewwwwwew";	//Area = 3
+
+	yad3RealtorAddApartmentService(service, "dave@gmail", "ap1", 3);
+	yad3RealtorAddApartmentService(service, "dave@gmail", "ap2", 5);
+
+	yad3RealtorAddApartment(service, "dave@gmail", "ap1", 10132, 150000, 4, 3, mat1);
+	yad3RealtorAddApartment(service, "dave@gmail", "ap1", 10133, 690000, 4, 3, mat2);
+	yad3RealtorAddApartment(service, "dave@gmail", "ap2", 10132, 300000, 4, 3, mat5);
+	yad3RealtorAddApartment(service, "dave@gmail", "ap2", 10133, 690000, 4, 3, mat2);
+//	yad3RealtorAddApartment(service, "dave@gmail", "ap2", 10132, 150000, 4, 3, mat1);
+
+
+	yad3RealtorAddApartmentService(service, "jessica@gmail", "ap1", 3);
+	yad3RealtorAddApartmentService(service, "jessica@gmail", "ap2", 5);
+	yad3RealtorAddApartmentService(service, "jessica@gmail", "ap3", 3);
+
+	yad3RealtorAddApartment(service, "jessica@gmail", "ap1", 10132, 100000, 4, 3, mat3);
+	yad3RealtorAddApartment(service, "jessica@gmail", "ap1", 10133, 690000, 4, 3, mat2);
+	yad3RealtorAddApartment(service, "jessica@gmail", "ap2", 10132, 800080, 4, 3, mat4);
+	yad3RealtorAddApartment(service, "jessica@gmail", "ap2", 10133, 150000, 4, 3, mat1);
+	yad3RealtorAddApartment(service, "jessica@gmail", "ap3", 10132, 150000, 4, 3, mat1);
+	yad3RealtorAddApartment(service, "jessica@gmail", "ap3", 10133, 690000, 4, 3, mat2);
+
+
+	yad3RealtorAddApartmentService(service, "ned_stark@gmail", "ap1", 3);
+	yad3RealtorAddApartmentService(service, "ned_stark@gmail", "ap2", 5);
+	yad3RealtorAddApartmentService(service, "ned_stark@gmail", "ap3", 3);
+
+	yad3RealtorAddApartment(service, "ned_stark@gmail", "ap1", 10132, 300000, 4, 3, mat5);
+	yad3RealtorAddApartment(service, "ned_stark@gmail", "ap1", 10133, 150000, 4, 3, mat1);
+	yad3RealtorAddApartment(service, "ned_stark@gmail", "ap2", 10132, 100000, 4, 3, mat3);
+	yad3RealtorAddApartment(service, "ned_stark@gmail", "ap2", 10133, 150000, 4, 3, mat1);
+	yad3RealtorAddApartment(service, "ned_stark@gmail", "ap3", 10132, 800080, 4, 3, mat4);
+	yad3RealtorAddApartment(service, "ned_stark@gmail", "ap3", 10133, 690000, 4, 3, mat2);
+
+
+	yad3SignificantRealtors(service, 4);
+
+	yad3RealtorRemove(service, "dave@gmail");
+	yad3RealtorRemove(service, "jessica@gmail");
+	yad3RealtorRemove(service, "ned_stark@gmail");
+
+
 
 	yad3ServiceDestroy(service);
 	return 0;

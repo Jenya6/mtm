@@ -5,6 +5,11 @@
 #include "set.h"
 #include "apartment_service.h"
 
+typedef struct Yad3Service_t* Yad3Service;
+typedef struct Realtor_t* Realtor;
+typedef struct Customer_t* Customer;
+typedef struct Offer_t* Offer;
+
 /** Type used for returning error codes from yad3 functions */
 typedef enum {
 	YAD3_SUCCESS,
@@ -36,51 +41,46 @@ typedef enum {
 	CUSTOMER,
 } User;
 
-typedef struct Yad3Service_t* Yad3Service;
-typedef struct Realtor_t* Realtor;
-typedef struct Customer_t* Customer;
-typedef struct offer_t* Offer;
-
 Yad3Service yad3ServiceCreate();
 void yad3ServiceDestroy(Yad3Service service);
 
-Yad3Result yad3AddRealtor(Yad3Service service, char* email, char* company_name,
+void printSystemData (Yad3Service service);
+
+Yad3Result yad3RealtorAdd(Yad3Service service, char* email, char* company_name,
 		int tax_percentage);
 
-Yad3Result yad3DeleteRealtor(Yad3Service service, char* key);
+Yad3Result yad3RealtorRemove(Yad3Service service, char* realtor_email);
 
-Yad3Result yad3AddApartmentService(Yad3Service service, char* realtor_email,
+Yad3Result yad3RealtorAddApartmentService(Yad3Service service, char* realtor_email,
 	char* service_name, int max_size);
 
-Yad3Result yad3RemoveApartmentService(Yad3Service service, char* realtor_email,
+Yad3Result yad3RealtorRemoveApartmentService(Yad3Service service, char* realtor_email,
 	char* service_name);
 
-Yad3Result yad3AddApartment(Map realtor_map, char* realtor_email,
-	char* service_name, int id, Apartment apartment);
+Yad3Result yad3RealtorAddApartment(Yad3Service service, char* realtor_email,
+	char* service_name, int id, int price, int width, int height, char* matrix);
 
-Yad3Result yad3RemoveApartment(Map realtor_map, char* realtor_email,
+Yad3Result yad3RealtorRemoveApartment(Yad3Service service, char* realtor_email,
 	char* service_name, int id);
 
-Yad3Result yad3RespondToOffer(Map realtor_map, char* realtor_email,
+Yad3Result yad3RealtorRespondToOffer(Yad3Service service, char* realtor_email,
 	char* customer_email, Choice response);
 
-Yad3Result yad3RelevantRealtors(Map realtor_map, char* customer_email);
+Yad3Result yad3RelevantRealtors(Yad3Service service, char* customer_email);
 
-Yad3Result yad3SignificantRealtors(Map realtor_map, int count);
+Yad3Result yad3SignificantRealtors(Yad3Service service, int count);
 
-Yad3Result yad3AddCustomer(Map customer_map, char* customer_email, int min_area,
+Yad3Result yad3CustomerAdd(Yad3Service service, char* customer_email, int min_area,
 	int min_rooms, int max_price);
 
-Yad3Result yad3RemoveCustomer(Map customer_map, char* customer_email);
+Yad3Result yad3CustomerRemove(Yad3Service service, char* customer_email);
 
-Yad3Result yad3Purchase(Map customer_map,
-		Map realtor_map, char* customer_email, char* realtor_email,
+Yad3Result yad3CustomerPurchase(Yad3Service service, char* customer_email, char* realtor_email,
 	char* service_name, int apartment_id);
 
-Yad3Result yad3MakeOffer(Map customer_map,
-		Map realtor_map, char* customer_email, char* realtor_email,
+Yad3Result yad3CustomerMakeOffer(Yad3Service service, char* customer_email, char* realtor_email,
 	char* service_name, int apartment_id, int new_price);
 
-Yad3Result yad3MostPayingCustomers(Map customer_map, int count);
+Yad3Result yad3MostPayingCustomers(Yad3Service service, int count);
 
 #endif /* YAD3SERVICE_H_ */
